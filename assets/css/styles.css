@@ -1,0 +1,267 @@
+/* Fonts （Google） */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap');
+
+:root{
+
+        /* 头部高度 rem 是一个相对单位，它相对于根元素（通常是 <html> 元素）的字体大小。 */
+        --header-height: 3.5rem;
+
+        /* 颜色 */ 
+        /* HSL(hue, saturation, lightness) 或者 HEF #FFFFFF 或者 RGB rgb(0, 0, 0) */
+        --first-color: hsl(230, 75%, 56%);              /* 核心色 */
+        --title-color: hsl(230, 75%, 15%);              /* 标题色 */
+        --text-color: hsl(230, 12%, 40%);               /* 文本色 */
+        --body-color: hsl(230, 100%, 98%);              /* 主体色 */
+        --container-color: hsl(230, 100%, 97%);         /* 容器色 */
+        --border-color: hsl(230, 25%, 80%);              /* 边框色 */
+
+        /* 字体 */
+        --body-font: "Poppins", sans-serif;             /* 全局字体 */
+        --h2-font-size: 1.25rem;                        /* h2 标题字体 */
+        --normal-font-size: .938rem;                    /* 普通标题字体 */
+
+        --font-regular: 400;                            /* 常规体 */
+        --font-medium: 500;                             /* 中等体 */
+        --font-semi-bold:600;                           /* 半粗体 */
+
+        /* z index */ /* 这个暂时没注释 */
+        --z-fixed: 100;
+        --z-modal: 1000;
+
+}
+
+/* 响应式布局 */
+@media screen and (min-width: 1023px) {
+        :root {
+                --h2-font-size: 1.5rem;                        /* h2 标题字体 */
+                --normal-font-size: 1rem; 
+        }
+}
+
+/* 模版 */ /* '*' 是一个通配符选择器，它匹配HTML文档中的所有元素。 */
+* {
+        box-sizing: border-box;         /* 保证组件的大小就这么大，边框和内边距无论怎么变，组件大小不变*/
+        padding: 0;                     /* 内边距：边界内的元素内容周围生成空间 */
+        margin: 0;                      /* 外边距：定义边框之外，为元素周围创建空间 */
+}
+
+/* 导航点击效果 */ /* 'html' 选择器专门针对HTML文档的根元素 '<html>'。 */
+html {
+        scroll-behavior: smooth;        /* 滚动平滑 */ /* 如果你在网页上点击一个链接，该链接指向同一页面上的不同部分，那么浏览器默认的行为是立即跳转到那个部分。但是，如果你设置了 scroll-behavior: smooth;，那么浏览器会以平滑的滚动过渡到那个部分，而不是立即跳转。 */
+}
+
+body, input, button {
+        font-family: var(--body-font);          /* 字体 */
+        font-size: var(--normal-font-size);     /* 字体大小 */
+}
+
+body {
+        background-color: var(--body-color);
+        color: var(--text-color);
+}
+
+input, 
+button {
+        border: none;           /* 无边框 */
+}
+
+/* 列表子集 */
+ul {
+        list-style: none;
+}
+
+/* 超链接 */
+a {
+        text-decoration: none;  /* 移除超链接文本的默认装饰，通常是下划线 */
+}
+
+/*  */
+img {
+        display: block;         /* 图片在新的一行显示，并占据整个容器的宽度 */
+        max-width: 100%;        /* 最大宽度为包含它的父元素的100%，响应式设计通用 */
+        height: auto;           /* 高度自动调整以保持其原始的宽高比, 配合 'max-width: 100%;' */
+}
+
+/* -- 可复用 -- */
+.container {
+        max-width: 1120px;              /* 响应式设计的常见做法，可以确保在较大的屏幕上内容不会过度扩展，从而保持良好的可读性和布局。 */
+        margin-inline: 1.5rem;          /* 一个逻辑属性，用于设置元素在行内方向的外边距，'1.5rem' 的值将应用于 '.container' 类的左右两侧，为其提供 '1.5' 倍根元素字体大小的外边距。 */
+}
+
+/*  */
+.main {
+        position: relative;
+        height: 100vh;                  /* 创建全屏页面部分或确保内容至少覆盖整个浏览器窗口的高度 */
+}
+
+/* 打底图片 */
+.main__bg {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;              /* 以确保不会因为拉伸而失真，这在创建全屏背景或响应式背景图像时非常有用 */
+        object-position: center;        /* 当内容被裁剪时，内容的中心部分将保持可见，并尽可能位于容器的中心 */
+        z-index: -1;                    /* 作为背景层，使用 'z-index: -1;' 可以确保这个背景层位于所有其他内容之下 */
+}
+
+/* 题头 */
+.header {
+        position: fixed;                /*  */
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: var(--body-color);
+        box-shadow: 0 2px 16px hsla(230, 75%, 32%, .15);
+        z-index: var(--z-fixed);
+}
+
+/* 导航栏 */
+.nav {
+        height: var(--header-height);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+}
+
+/* Logo */
+.nav__logo {
+        color: var(--title-color);
+        font-weight: var(--font-semi-bold);
+        transition: color .4s;                          /* 如果你将这个属性应用到一个链接上，并且设置了一个 :hover 伪类来改变链接的颜色，当鼠标悬停在链接上时，链接的颜色将在0.4秒内平滑地从原始颜色变为 :hover 状态下的颜色。这样的效果使用户界面更加流畅和有吸引力 */
+}
+
+/* 右边 */
+.nav__actions {
+        display: flex;
+        align-items: center;
+        column-gap: 1rem;
+}
+
+/* 右边小件 */
+.nav__search, 
+.nav__login, 
+.nav__toggle, 
+.nav__close {
+        font-size: 1.25rem;
+        color: var(--title-color);
+        cursor: pointer;                        /* 箭头改手 */
+        transition: color .4s;                  /* 鼠标悬停，颜色平滑过度 */
+}
+
+/* 鼠标放置，变色 */
+:is(.nav__logo, .nav__search, .nav__login, .nav__toggle, .nav__link):hover {
+        color: var(--first-color);
+}
+
+/* 不同屏幕布局 */
+@media screen and (max-width: 1023px) {
+        .nav__menu {
+                position: fixed;                                        /* 将固定在视口（即浏览器窗口）中的一个位置，不随页面滚动而移动 */
+                top: -100%;                                             /* 将 '.nav__menu' 元素的顶部位置设置在视口顶部之上的位置，具体高度为元素自身高度的100% */
+                left: 0;
+                background-color: var(--body-color);
+                box-shadow: 0 8px 16px hsla(230, 75%, 32%, .15);
+                width: 100%;
+                padding-block: 4.5rem 4rem;
+                transition: top .8s;
+        }
+}
+
+/* 导航列表 */
+.nav__list {
+        display: flex;
+        flex-direction: column;                 /* 方向 - 列 */
+        row-gap: 2.5rem;
+        text-align: center;
+}
+
+/* 列表子项 */
+.nav__link {
+        color: var(--title-color);
+        font-weight: var(--font-semi-bold);
+        transition: color .4s;
+}
+
+/* 关闭按钮 */
+.nav__close {
+        position: absolute;
+        top: 1.15rem;
+        right: 1.5rem;
+}
+
+/* 点击 显示菜单 */
+.show-menu {
+        top: 0;
+}
+
+/* 搜索区 */
+.search {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: var(--z-modal);
+        background-color: hsla(230, 75%, 32%, .1);
+        backdrop-filter: blur(24px);                    /* 应用一个滤镜效果到一个元素的背景上，将模糊效果应用于元素后面的所有内容 */
+        -webkit-backdrop-filter: blur(24px);            /* For Safari */
+        padding: 8rem 1.5rem 0;
+        opacity: 0;                                      /* 1是不透明的（看得见，显示），0是完全透明的（看不见，隐藏） */
+        pointer-events: none;                            /* 告诉浏览器忽略对该元素的鼠标事件，如点击、悬停等 */
+        transition: opacity .4s; 
+}
+
+/* 搜索表单 */
+.search__from {
+        display: flex;
+        align-items: center;
+        column-gap: .5rem;
+        background-color: var(--container-color);
+        box-shadow: 0 8px 32px hsla(230, 75%, 15%, .2);
+        padding-inline: 1rem;
+        border-radius: .5rem;                           /* 圆角 */
+        transform: translateY(-1rem);
+        transition: transform .4s;                      /* 这段代码通常用于创建动画效果，如当鼠标悬停或点击一个元素时，它会平滑地向上移动一个单位，增加视觉上的反馈和动态效果 */
+}
+
+/* 搜索图标 */
+.search__icon {
+        font-size: 1.25rem;
+        color: var(--title-color);
+}
+
+/* 搜索输入框 */
+.search__input {
+        width: 100%;
+        padding-block: 1rem;
+        background-color: var(--container-color);
+        color: var(--text-color);
+}
+
+/* 搜索光标 */
+.search__input::placeholder {
+        color: var(--text-color);                       /* 暂时不知道 */
+}
+
+/* 关闭搜索按钮 */
+.search__close {
+        position: absolute;
+        top: 2rem;
+        right: 2rem;
+        font-size: 1.5rem;
+        color: var(--title-color);
+        cursor: pointer;                                /* 鼠标变手 */ 
+}
+
+/* 点击 显示搜索 */
+.show-search {
+        opacity: 1;
+        pointer-events: initial;                        /* 规定在何种情况下元素可以成为鼠标事件的目标 */
+}
+
+/* 点击动画 */
+.show-search .search__from {
+        transform: translateY(0);                       /* 在点击搜索按钮的过程中，从上面 'translateY(-1)' 的位置到 'translateY(0)' 用时0.4秒 平滑过度 */
+}
