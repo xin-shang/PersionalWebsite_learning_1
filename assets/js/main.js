@@ -33,3 +33,21 @@ searchBtn.addEventListener('click', () => {
 searchClose.addEventListener('click', () => {
         search.classList.remove('show-search')
 })
+
+/**
+ * 登录
+*/ 
+// 找ID为 'XX' 的元素，并将其赋值给 XX
+const login = document.getElementById('login'),
+        loginBtn = document.getElementById('login-btn'),
+        loginClose = document.getElementById('login-close')
+
+// 显示登录
+loginBtn.addEventListener('click', () => {
+        login.classList.add('show-login')
+})
+
+// 关闭登录
+loginClose.addEventListener('click', () => {
+        login.classList.remove('show-login')
+})
